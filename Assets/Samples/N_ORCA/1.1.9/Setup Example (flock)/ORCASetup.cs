@@ -176,7 +176,7 @@ namespace Nebukam.ORCA
             float inc = Maths.TAU / (float)agentCount;
             IAgent a;
 
-            for (int i = 0; i < agentCount; i++)
+            for (int i = 0; i < agentCount*3/4; i++)
             {
                 if (axis == AxisPair.XY)
                 {
@@ -192,6 +192,21 @@ namespace Nebukam.ORCA
                 a.prefVelocity = float3(0f);
             }
 
+            for (int i = 0; i < 10; i++)
+            {
+                if (axis == AxisPair.XY)
+                {
+                    a = agents.Add((float3)transform.position + float3(Random.value, Random.value, 0f)) as IAgent;
+                }
+                else
+                {
+                    a = agents.Add((float3)transform.position + float3(Random.value, 0f, Random.value)) as IAgent;
+                }
+
+                a.radius = 0.5f + Random.value * maxAgentRadius*4;
+                a.radiusObst = a.radius + Random.value * maxAgentRadius;
+                a.prefVelocity = float3(0f);
+            }
             #endregion
 
             #region create raycasts
